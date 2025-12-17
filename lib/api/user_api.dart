@@ -31,6 +31,7 @@ Future<int> registerUser(
     final response = await http.post(uri, headers: headers, body: body);
 
     if (response.statusCode == 201) {
+      
       return 201;
     } else {
       print("Échec : ${response.statusCode}\nRéponse : ${response.body}");
@@ -50,11 +51,11 @@ Future<int> loginUser(
   final String baseUrl = dotenv.env['API_BASE_URL']!;
 
   // NOTE: Changez cette URL selon votre API de connexion
-  final uri = Uri.parse("$baseUrl/login");
+  final uri = Uri.parse("$baseUrl/authentication_token");
 
   final headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    'Content-Type': 'application/ld+json',
+    'Accept': 'application/ld+json',
   };
 
   final body = json.encode({
@@ -66,6 +67,7 @@ Future<int> loginUser(
     final response = await http.post(uri, headers: headers, body: body);
 
     if (response.statusCode == 200) {
+      print("Réussie : ${response.statusCode}\nRéponse : ${response.body}");
       return 200; // Connexion réussie
     } else {
       print("Échec : ${response.statusCode}\nRéponse : ${response.body}");

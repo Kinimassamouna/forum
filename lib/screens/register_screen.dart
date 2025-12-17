@@ -122,12 +122,12 @@ class _RegisterScreen extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Inscription', style: TextStyle(color: Color.fromARGB(255, 121, 14, 197))),
+        title: const Text('Inscription'),
         backgroundColor: const Color.fromARGB(255, 242, 157, 205),
         actions: <Widget>[
           TextButton(
             onPressed: btLogIn,
-            child: const Text("Se connecter", style: TextStyle(color: Color.fromARGB(255, 121, 14, 197))),
+            child: const Text("Se connecter"),
          ),
        ],
       ),
@@ -138,6 +138,20 @@ class _RegisterScreen extends State<RegisterScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+             // Titre
+              const Center(
+                child: Text(
+                  'Inscrivez-vous',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              
+              const SizedBox(height: 30),
+
+
             //champ prénom
             TextFormField(
               controller: _surnameController,
@@ -166,6 +180,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               },
             ),
             const SizedBox(height: 20),
+
 
             //champ nom
             TextFormField(
@@ -196,6 +211,7 @@ class _RegisterScreen extends State<RegisterScreen> {
             ),
             const SizedBox(height: 20),
 
+
             //champ email
             TextFormField(
               controller: _emailController,
@@ -224,6 +240,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               },
             ),
             const SizedBox(height: 20),
+
 
             //champ mot de passe
             TextFormField(
@@ -254,6 +271,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               },
             ),
             const SizedBox(height: 20),
+
 
             //champ confirmation du mot de passe
             TextFormField(
@@ -295,12 +313,12 @@ class _RegisterScreen extends State<RegisterScreen> {
     },
     controlAffinity: ListTileControlAffinity.leading,
 ),
-
-            ElevatedButton(
-              onPressed: 
-               _agreeToTerms ? _submitForm : null,
+            Center(
+              child: ElevatedButton(
+              onPressed:  _agreeToTerms ? _submitForm : null,
               child: const Text("S'inscrire"),
             ),
+           ),
           ]
            ),
       ),

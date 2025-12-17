@@ -106,7 +106,7 @@ class _LogInScreen extends State<LogInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connexion', style: TextStyle(color: Color.fromARGB(255, 121, 14, 197))),
+        title: const Text('Connexion'),
         backgroundColor: const Color.fromARGB(255, 242, 157, 205),
       ),
     body: Form(
@@ -125,7 +125,6 @@ class _LogInScreen extends State<LogInScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 121, 14, 197),
                   ),
                 ),
               ),
@@ -161,6 +160,7 @@ class _LogInScreen extends State<LogInScreen> {
               },
             ),
             const SizedBox(height: 20),
+
 
             //champ mot de passe
             TextFormField(
@@ -198,6 +198,30 @@ class _LogInScreen extends State<LogInScreen> {
               child: const Text("Se connecter"),
             ),
            ),
+           const SizedBox(height: 20),
+
+Center(
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Text("Pas encore de compte ? "),
+      GestureDetector(   // Il transforme n’importe quel widget en élément cliquable / interactif
+        onTap: () {
+          Navigator.pushNamed(context, '/register');
+        },
+        child: const Text(
+          "S'inscrire",
+          style: TextStyle(
+            color: Color.fromARGB(255, 242, 157, 205),
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+
           ]
            ),
       ),

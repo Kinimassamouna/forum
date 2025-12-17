@@ -16,15 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Forum',
+      debugShowCheckedModeBanner: false, 
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: const HomeScreen(), 
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
-       // '/': (context) => const HomeScreen(), car on utilise déjà home: const HomeScreen(), 
+        '/': (context) => const HomeScreen(), 
         '/register': (context) =>  RegisterScreen(),
         '/login': (context) =>  LogInScreen(),
       },
@@ -32,18 +31,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Forum',  style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromARGB(255, 242, 157, 205),
-      ),
-      body: const Center(
-        child: Text(
-          'Bienvenue sur l\'application Forum!',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
+  
