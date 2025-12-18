@@ -19,6 +19,8 @@ class UserController with ChangeNotifier {
         password: '123456',
         sexe: 'Masculin',
         dateInscription: DateTime.now(),
+        telephone: '0601020304',
+        ville: 'Paris',
       ),
       User(
         'Durand',
@@ -27,6 +29,8 @@ class UserController with ChangeNotifier {
         password: '123456',
         sexe: 'Masculin',
         dateInscription: DateTime.now(),
+        telephone: '0605060708',
+        ville: 'Lyon',
       ),
       User(
         'Martin',
@@ -43,6 +47,8 @@ class UserController with ChangeNotifier {
         password: '123456',
         sexe: 'Féminin',
         dateInscription: DateTime.now(),
+        telephone: '0605060708',
+        ville: 'London',
       ),
       User(
         'Bertrand',
@@ -53,6 +59,7 @@ class UserController with ChangeNotifier {
         dateInscription: DateTime.now(),
       ),
     ]);
+    notifyListeners();
   }
 
   // Connexion
@@ -71,6 +78,7 @@ class UserController with ChangeNotifier {
   // Déconnexion
   void logout() {
     _currentUser = null;
+    notifyListeners();
   }
 
   // Ajouter un utilisateur
@@ -100,14 +108,17 @@ class UserController with ChangeNotifier {
         dateInscription: dateInscription ?? DateTime.now(),
       ),
     );
+    notifyListeners();
   }
 
   void sortByPrenom() {
     _users.sort((a, b) => a.prenom.compareTo(b.prenom));
+    notifyListeners();
   }
 
   void removeUserAt(int index) {
       _users.removeAt(index);
+      notifyListeners();
     }
   }
 

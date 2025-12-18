@@ -2,10 +2,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+// ignore: non_constant_identifier_names
 Future<int> MessageUser(
   String contenu,
   DateTime date,
-  String auteurId, // <-- changer int en String
+  String auteurIri, // <-- changer int en String
+  int categorieIri,
 ) async {
   final String baseUrl = dotenv.env['API_BASE_URL']!;
   final uri = Uri.parse("$baseUrl/messages");
@@ -18,7 +20,8 @@ Future<int> MessageUser(
   final body = json.encode({
     'contenu': contenu,
     'date': date.toIso8601String(),
-    'auteur': '/users/$auteurId', // fonctionne avec UUID String
+    'auteur':  auteurIri,
+    'categorie':categorieIri,
   });
 
   try {

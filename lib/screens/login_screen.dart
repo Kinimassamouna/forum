@@ -7,6 +7,7 @@ class LogInScreen extends StatefulWidget {
   
 
   @override
+   // ignore: library_private_types_in_public_api
    _LogInScreen createState() => _LogInScreen();
   }
 
@@ -45,11 +46,13 @@ class _LogInScreen extends State<LogInScreen> {
           _passwordController.text
         );
 
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop(); // retire le loader
 
         if (result == 200) {
           // Succès
           showDialog(
+            // ignore: use_build_context_synchronously
             context: context,
             builder: (context) => AlertDialog(
             title: const Text('Connexion réussie'),
@@ -68,6 +71,7 @@ class _LogInScreen extends State<LogInScreen> {
         } else {
           // Erreur serveur
           showDialog(
+            // ignore: use_build_context_synchronously
             context: context,
             builder: (context) => AlertDialog(
               title: const Text('Échec lors de la connexion'),
@@ -84,8 +88,10 @@ class _LogInScreen extends State<LogInScreen> {
         }
       } catch (e) {
         // Exception réseau / JSON
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop();
         showDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Erreur'),

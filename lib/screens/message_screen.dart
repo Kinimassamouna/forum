@@ -2,19 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../controller/message_controller.dart';
 import '../model/user.dart';
-
+import '../model/categorie.dart';
 
 class MessagesScreen extends StatefulWidget {
   final User currentUser; // utilisateur connecté
-  const MessagesScreen({super.key, required this.currentUser});
+  final Categorie categorie;
+
+  const MessagesScreen({super.key, required this.currentUser, required this.categorie,});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MessagesScreenState createState() => _MessagesScreenState();
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
   late MessageController _controller;
   final TextEditingController _messageController = TextEditingController();
+ 
+
+  // Liste de catégories
+  final List<Categorie> categories = [
+    Categorie(id: 1, titre: 'Soins beauté'),
+    Categorie(id: 2, titre: 'Cuisine'),
+    Categorie(id: 3, titre: 'Voyages'),
+  ];
 
   @override
   void initState() {
@@ -32,9 +43,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
   void _sendMessage() {
     final contenu = _messageController.text.trim();
     if (contenu.isEmpty) return;
-
-    // Ajouter le message localement et notifier les listeners
-    _controller.addMessage(contenu, widget.currentUser);
+    _controller.addMessage(
+    contenu,
+    widget.currentUser,
+    widget.categorie, // 👈 catégorie du forum
+    );
 
     _messageController.clear();
 
@@ -53,7 +66,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
       value: _controller,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Messages'),
+          title: Text(widget.categorie.titre), // 👈 nom du forum
           backgroundColor: const Color.fromARGB(255, 242, 157, 205),
         ),
         body: Column(
@@ -61,7 +74,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
             Expanded(
               child: Consumer<MessageController>(
                 builder: (context, controller, child) {
-                  final messages = controller.messages;
+                  final messages = controller.messagesByCategorie(widget.categorie);
                   if (messages.isEmpty) {
                     return const Center(child: Text("Aucun message"));
                   }
@@ -70,13 +83,14 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       final message = messages[messages.length - 1 - index];
-                      final auteur = message.auteur; // User
+                      final auteur = message.auteur;
+
                       return Card(
                         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: ListTile(
                           title: Text(message.contenu),
                           subtitle: Text(
-                              "Par ${auteur.prenom} ${auteur.nom} • ${message.date.toLocal().toString().substring(0,16)}"),
+                              "Par ${auteur?.prenom} ${auteur?.nom} • ${message.date.toLocal().toString().substring(0,16)}"),
                         ),
                       );
                     },
